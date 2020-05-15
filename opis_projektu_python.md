@@ -6,9 +6,9 @@ Opis zadania
 *Wprowadzenie mniejszego rozmiaru planszy niż 2x2 lub większego niż 15x15, liczby min mniejszej niż 0 lub większej niż m*npowoduje wyświetlenie komunikatu o błędzie. Nie można rozpocząć gry dopóki te parametry nie są poprawne. Walidacja danych powinna wykorzystywać mechanizm wyjątków.
 *Na początku gry na losowych polach umieszczane jest tyle min ile wskazano w polu tekstowym (każde możliwe rozłożenie min jest równie prawdopodobne).
 *Po kliknięciu lewym przyciskiem na pole:
-**Jeśli jest tam mina, wyświetlana jest wiadomość o przegranej i gra się kończy,
-**Jeśli w sąsiedztwie pola są miny, na przycisku wyświetlana jest ich liczba a pole dezaktywuje się,
-**W przeciwnym razie sąsiednie pola są sprawdzane tak jakby zostały kliknięte a pole dezaktywuje się.
+ *Jeśli jest tam mina, wyświetlana jest wiadomość o przegranej i gra się kończy,
+ *Jeśli w sąsiedztwie pola są miny, na przycisku wyświetlana jest ich liczba a pole dezaktywuje się,
+ *W przeciwnym razie sąsiednie pola są sprawdzane tak jakby zostały kliknięte a pole dezaktywuje się.
 *Po kliknięciu prawym przyciskiem pole może zostać oznaczone “tu jest mina”, po ponownym kliknięciu oznaczenie zmienia się na “tu może być mina”, a po kolejnym kliknięciu oznaczenie znika.
 *Gra kończy się po kliknięciu wszystkich pól bez min, lub oznaczeniu “tu jest mina” wszystkich pól z minami (i żadnych innych).
 *Po naciśnięciu kolejno klawiszy x, y, z, z, y, pola pod którymi są miny stają się ciemniejsze.
