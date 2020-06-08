@@ -168,15 +168,14 @@ while akcja_trwa:
     wygrana = czy_wygrana()
     if len(kod) > 5:
         kod.pop(0)
-        print(kod)
     if kod == [120, 121, 122, 122, 121]:
         for kratka in plansza:
             kratka.pokaż()
         pg.display.flip()
     if wygrana:
         #akcja_trwa = False
-        #print("Wygrałeś")
         ekran.blit(wygrana_partia, (20, 20))
         pg.display.flip()
         pass
+    
 pg.quit()
