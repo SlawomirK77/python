@@ -4,7 +4,7 @@ import random
 import pygame as pg
 import tkinter
 
-#import assets
+import assets
 
 rozmiar_okna = []
 plansza = []
@@ -17,15 +17,7 @@ wygrana = False
 kod = []
 sasiadujace_pola = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
-komorka_normalna = pg.image.load('komorka_normalna.png')
-komorka_flaga_bomba = pg.image.load('komorka_flaga_bomba.png')
-komorka_flaga_bomba_moze = pg.image.load('komorka_flaga_bomba_moze.png')
-komorka_zaminowana = pg.image.load('komorka_zaminowana.png')
-wygrana_partia = pg.image.load('wygrana.png')
-komorka_z_bomba = pg.image.load('komorka_z_bomba.png')
-komorka_wybrana = []
-for i in range(9):
-    komorka_wybrana.append(pg.image.load(f'komorka_{i}.png'))
+assets.Assets.load()
 
 
 @dataclass
@@ -42,19 +34,19 @@ class Komorka:
         pozycja = (self.kolumna * bok_kratki, self.wiersz * bok_kratki)
         if self.wybrana:
             if self.bomba:
-                ekran.blit(komorka_zaminowana, pozycja)
+                ekran.blit(assets.Assets.komorka_zaminowana, pozycja)
             else:
-                ekran.blit(komorka_wybrana[self.bomby_w_sasiedztwie], pozycja)
+                ekran.blit(assets.Assets.komorka_wybrana[self.bomby_w_sasiedztwie], pozycja)
         else:
             if self.flaga_bomba:
-                ekran.blit(komorka_flaga_bomba, pozycja)
+                ekran.blit(assets.Assets.komorka_flaga_bomba, pozycja)
             elif self.flaga_bomba_moze:
-                ekran.blit(komorka_flaga_bomba_moze, pozycja)
+                ekran.blit(assets.Assets.komorka_flaga_bomba_moze, pozycja)
             else:
-                ekran.blit(komorka_normalna, pozycja)
+                ekran.blit(assets.Assets.komorka_normalna, pozycja)
             if kod == [120, 121, 122, 122, 121] and not self.flaga_bomba and not self.flaga_bomba_moze:
                 if self.bomba:
-                    ekran.blit(komorka_z_bomba, pozycja)
+                    ekran.blit(assets.Assets.komorka_z_bomba, pozycja)
 
     def identyfikuj_miny(self):
         for pozycja in sasiadujace_pola:
@@ -119,6 +111,7 @@ def czy_wygrana():
 
 def przypisz_wartosci():
     plansza.clear()
+    kod.clear()
     global ile_kolumn
     ile_kolumn = int(szerokosc_planszy_wprowadz.get())
     global ile_wierszy
@@ -190,8 +183,7 @@ def graj():
                 kratka.pokaz()
             pg.display.flip()
         if wygrana:
-            #akcja_trwa = False
-            ekran.blit(wygrana_partia, (20, 20))
+            ekran.blit(assets.Assets.wygrana_partia, (20, 20))
             pg.display.flip()
             pg.event.wait()
             p1,p2,p3 = pg.mouse.get_pressed()
@@ -220,7 +212,7 @@ szerokosc_planszy_wprowadz = tkinter.Entry(okno)
 wysokosc_planszy_wprowadz = tkinter.Entry(okno)
 
 przycisk_startu = tkinter.Button(okno, text='Rozpocznij', command=zlozenie, padx=30, pady=15)
-przycisk_zakonczenia = tkinter.Button(okno, text='Zakończ', padx=37, pady=15)
+przycisk_zakonczenia = tkinter.Button(okno, text='Zakończ', command=exit, padx=37, pady=15)
 
 szerokosc_planszy_opis.grid(row=0, column=1)
 szerokosc_planszy_wprowadz.grid(row=1, column=1)
