@@ -191,7 +191,9 @@ def main():
     szerokosc_planszy_wprowadz = tkinter.Entry(okno)
     wysokosc_planszy_wprowadz = tkinter.Entry(okno)
 
-    przycisk_startu = tkinter.Button(okno, text='Rozpocznij', command=lambda:graj(int(szerokosc_planszy_wprowadz.get()), int(wysokosc_planszy_wprowadz.get()), int(ilosc_min_wprowadz.get())), padx=30, pady=15)
+    przycisk_startu = tkinter.Button(okno, text='Rozpocznij', command=lambda:graj(int(szerokosc_planszy_wprowadz.get()),
+     int(wysokosc_planszy_wprowadz.get()), int(ilosc_min_wprowadz.get())), padx=30, pady=15)
+    
     przycisk_zakonczenia = tkinter.Button(okno, text='Zakończ', command=exit, padx=37, pady=15)
 
     szerokosc_planszy_opis.grid(row=0, column=1)
