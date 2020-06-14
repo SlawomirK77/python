@@ -28,24 +28,17 @@ class KomorkaTest(unittest.TestCase):
         miny = 5
         plansza = []
         main.inicjuj_pusta_plansze(plansza, kolumny, wiersze)
-
         self.assertFalse(main.czy_wygrana(plansza, kolumny, wiersze, miny))
-
         for i in range(miny):
             plansza[i].bomba = True
             plansza[i].flaga_bomba = True
-
         self.assertTrue(main.czy_wygrana(plansza, kolumny, wiersze, miny))
-
         for i in plansza:
             i.flaga_bomba = False
-
         self.assertFalse(main.czy_wygrana(plansza, kolumny, wiersze, miny))
-
         for i in plansza:
             if not i.bomba:
                 i.wybrana = True
-
         self.assertTrue(main.czy_wygrana(plansza, kolumny, wiersze, miny))
 
     def test_czy_wygrana2(self):
@@ -83,7 +76,7 @@ class KomorkaTest(unittest.TestCase):
         main.policz_bomby(plansza, kolumny, wiersze)
         for i in [1, 2, 3]:
             self.assertEqual(plansza[i].bomby_w_sasiedztwie, 1)
-
+            
         kolumny = 3
         wiersze = 10
         main.inicjuj_pusta_plansze(plansza, kolumny, wiersze)
