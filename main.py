@@ -19,7 +19,7 @@ class Komorka:
     wybrana: bool = False
     flaga_bomba: bool = False
     flaga_bomba_moze: bool = False
-    bomby_w_sasiedztwie = int = 0
+    bomby_w_sasiedztwie : int = 0
 
     def pokaz(self, ekran, kod):
         pozycja = (self.kolumna * BOK_KRATKI, self.wiersz * BOK_KRATKI)
