@@ -6,7 +6,6 @@ import tkinter
 
 import assets
 
-
 BOK_KRATKI = 16
 SASIADUJACE_POLA = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
@@ -19,7 +18,7 @@ class Komorka:
     wybrana: bool = False
     flaga_bomba: bool = False
     flaga_bomba_moze: bool = False
-    bomby_w_sasiedztwie : int = 0
+    bomby_w_sasiedztwie = int = 0
 
     def pokaz(self, ekran, kod):
         pozycja = (self.kolumna * BOK_KRATKI, self.wiersz * BOK_KRATKI)
@@ -52,7 +51,7 @@ def czy_na_planszy(wiersz, kolumna, ile_kolumn, ile_wierszy):
     return wiersz > -1 and wiersz < ile_wierszy and kolumna > -1 and kolumna < ile_kolumn
 
 
-def zaminuj_plansze(wiersz, kolumna, plansza, zmienna, ile_kolumn, ile_wierszy, ile_min):
+def zaminuj_plansze(plansza, zmienna, ile_kolumn, ile_wierszy, ile_min):
     i = ile_min
     bezpieczna_lista = []
     komorka = plansza[zmienna]
@@ -80,7 +79,6 @@ def odkryj_pobliskie(plansza, wiersz, kolumna, ile_kolumn, ile_wierszy):
         nowy_kolumna = kolumna + zmienna[1]
         if czy_na_planszy(nowy_wiersz, nowy_kolumna, ile_kolumn, ile_wierszy):
             komorka = plansza[nowy_kolumna * ile_wierszy + nowy_wiersz]
-            #komorka = plansza[nowy_wiersz * ile_kolumn + nowy_kolumna]
             if komorka.bomby_w_sasiedztwie == 0 and not komorka.wybrana:
                 komorka.wybrana = True
                 odkryj_pobliskie(plansza, nowy_wiersz, nowy_kolumna, ile_kolumn, ile_wierszy)
@@ -99,15 +97,15 @@ def czy_wygrana(plansza, ile_kolumn, ile_wierszy, ile_min):
     if i == 0 or j == 0:
         return True
     return False
-    
+
 
 def inicjuj_pusta_plansze(plansza, ile_kolumn, ile_wierszy):
+    plansza.clear()
     for i in range(ile_kolumn * ile_wierszy):
         plansza.append(Komorka(i // ile_wierszy, i % ile_wierszy))
 
 
 def graj(szerokosc, wysokosc, ilosc_min):
-    
     plansza = []
     plansza.clear()
     kod = []
@@ -133,14 +131,14 @@ def graj(szerokosc, wysokosc, ilosc_min):
                 akcja_trwa = False
             if wydarzenie.type == pg.MOUSEBUTTONDOWN:
                 mysz_os_x, mysz_os_y = pg.mouse.get_pos()
-                kolumna = mysz_os_x//BOK_KRATKI
-                wiersz = mysz_os_y//BOK_KRATKI
+                kolumna = mysz_os_x // BOK_KRATKI
+                wiersz = mysz_os_y // BOK_KRATKI
                 zmienna = kolumna * ile_wierszy + wiersz
                 komorka = plansza[zmienna]
                 if pierwszy_ruch:
                     if pg.mouse.get_pressed()[0]:
                         komorka.wybrana = True
-                        zaminuj_plansze(wiersz, kolumna, plansza, zmienna, ile_kolumn, ile_wierszy, ile_min)
+                        zaminuj_plansze(plansza, zmienna, ile_kolumn, ile_wierszy, ile_min)
                         policz_bomby(plansza, ile_kolumn, ile_wierszy)
                         odkryj_pobliskie(plansza, wiersz, kolumna, ile_kolumn, ile_wierszy)
                         pierwszy_ruch = False
@@ -191,9 +189,11 @@ def main():
     szerokosc_planszy_wprowadz = tkinter.Entry(okno)
     wysokosc_planszy_wprowadz = tkinter.Entry(okno)
 
-    przycisk_startu = tkinter.Button(okno, text='Rozpocznij', command=lambda:graj(int(szerokosc_planszy_wprowadz.get()),
-     int(wysokosc_planszy_wprowadz.get()), int(ilosc_min_wprowadz.get())), padx=30, pady=15)
-    
+    przycisk_startu = tkinter.Button(
+        okno, text='Rozpocznij', command=lambda: graj(int(szerokosc_planszy_wprowadz.get()),
+                                                      int(wysokosc_planszy_wprowadz.get()),
+                                                      int(ilosc_min_wprowadz.get())), padx=30, pady=15)
+
     przycisk_zakonczenia = tkinter.Button(okno, text='Zakończ', command=exit, padx=37, pady=15)
 
     szerokosc_planszy_opis.grid(row=0, column=1)
